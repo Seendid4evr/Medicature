@@ -1,0 +1,27 @@
+{
+  "name": "Medicature - Your Health, On Time",
+  "short_name": "Medicature",
+  "description": "Track medications, search drug info, and manage your family's health.",
+  "start_url": "/medicure/pages/dashboard.php",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/medicure/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/medicure/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "medical", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr"
+}

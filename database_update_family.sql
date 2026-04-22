@@ -1,0 +1,14 @@
+﻿USE medicature;
+
+CREATE TABLE IF NOT EXISTS dependents (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    relationship VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+ALTER TABLE medicines
+ADD COLUMN dependent_id INT NULL DEFAULT NULL AFTER user_id,
+ADD FOREIGN KEY (dependent_id) REFERENCES dependents(id) ON DELETE SET NULL;

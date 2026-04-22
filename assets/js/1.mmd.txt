@@ -1,0 +1,44 @@
+﻿usecaseDiagram
+    actor Patient as "Patient (User)"
+    actor System as "System Timer"
+
+    package "Medicature Application" {
+        usecase "Register Account" as UC1
+        usecase "Log In" as UC2
+        
+        package "Profile Management" {
+            usecase "Update Personal Info" as UC3
+            usecase "Change Password" as UC4
+            usecase "Manage Notification Settings" as UC5
+        }
+
+        package "Medicine Management" {
+            usecase "Add New Medicine" as UC6
+            usecase "Edit Medicine Details" as UC7
+            usecase "Delete Medicine" as UC8
+            usecase "View Schedule Dashboard" as UC9
+        }
+
+        package "Notification System" {
+            usecase "Trigger Reminder" as UC10
+            usecase "Play Audio Alarm" as UC11
+            usecase "Display Browser Notification" as UC12
+            usecase "Acknowledge Reminder" as UC13
+        }
+    }
+
+    Patient --> UC1
+    Patient --> UC2
+    Patient --> UC3
+    Patient --> UC4
+    Patient --> UC5
+    Patient --> UC6
+    Patient --> UC7
+    Patient --> UC8
+    Patient --> UC9
+    Patient --> UC13
+
+    System --> UC10
+    UC10 ..> UC11 : include
+    UC10 ..> UC12 : include
+    UC12 --> Patient

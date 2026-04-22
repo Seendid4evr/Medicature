@@ -1,0 +1,48 @@
+# =============================================
+# Medicature — .gitignore
+# =============================================
+
+# ---- Sensitive Config (NEVER push these) ----
+config/database.php
+config/mail.php
+
+# ---- Vendor / Dependencies (use Composer) ----
+vendor/
+
+# ---- Uploaded files by users ----
+uploads/*
+!uploads/.gitkeep
+
+# ---- Archive & Backup files ----
+archive/
+archive.zip
+*.zip
+*.tar.gz
+
+# ---- Junk / Non-app files ----
+1.docx
+1_Medicature.docx
+generate_detailed_pptx.py
+rename_docx.py
+rename_project.ps1
+run_app.bat
+sss/
+docs/
+diag.php
+test_delete_debug.php
+import_bd_medicines.php
+
+# ---- Python cache ----
+__pycache__/
+*.pyc
+
+# ---- OS junk ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+*.swp
+*.swo
