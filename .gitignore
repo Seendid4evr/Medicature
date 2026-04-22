@@ -3,7 +3,6 @@
 # =============================================
 
 # ---- Sensitive Config ----
-# config/mail.php is excluded (contains real SMTP password)
 config/mail.php
 
 # ---- Vendor / Dependencies (use Composer) ----
@@ -19,7 +18,16 @@ archive.zip
 *.zip
 *.tar.gz
 
-# ---- Junk / Non-app files ----
+# ---- Report / Documentation files (not app code) ----
+*.docx
+*.pptx
+*.pdf
+wbs_diagram.png
+
+# ---- Python utility scripts (not app code) ----
+*.py
+
+# ---- One-off / Junk files ----
 1.docx
 1_Medicature.docx
 generate_detailed_pptx.py
@@ -46,3 +54,6 @@ desktop.ini
 .idea/
 *.swp
 *.swo
+
+# ---- Database dumps (contain real data) ----
+*.sql

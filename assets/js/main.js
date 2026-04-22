@@ -1,14 +1,12 @@
-﻿// assets/js/main.js - Medicature Main JavaScript
+// assets/js/main.js - Medicature Main JavaScript
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Initialize all features
     initMarkAsTaken();
     initFormValidation();
     initNotifications();
     checkReminders();
 });
 
-// ==================== MARK MEDICINE AS TAKEN ====================
 function initMarkAsTaken() {
     const markTakenButtons = document.querySelectorAll('.mark-taken');
 
@@ -22,7 +20,6 @@ function initMarkAsTaken() {
                 return;
             }
 
-            // Disable button and show loading state
             this.disabled = true;
             const originalText = this.textContent;
             this.textContent = 'Marking...';
@@ -30,9 +27,7 @@ function initMarkAsTaken() {
             try {
                 const response = await fetch('../api/mark_taken.php', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         medicine_id: medicineId,
                         schedule_id: scheduleId,
@@ -43,19 +38,16 @@ function initMarkAsTaken() {
                 const result = await response.json();
 
                 if (result.success) {
-                    // Update UI to show taken status
                     const scheduleItem = this.closest('.schedule-item');
                     scheduleItem.classList.add('taken');
 
                     const actionDiv = this.closest('.schedule-action');
                     actionDiv.innerHTML = `
-                        <span class="badge badge-success">âœ“ Taken</span>
+                        <span class="badge badge-success">✓ Taken</span>
                         <small>at ${formatTime(new Date())}</small>
                     `;
 
                     showAlert('Marked as taken!', 'success');
-
-                    // Update stats
                     updateStats();
                 } else {
                     showAlert(result.message || 'Failed to mark as taken', 'error');
@@ -72,7 +64,6 @@ function initMarkAsTaken() {
     });
 }
 
-// ==================== FORM VALIDATION ====================
 function initFormValidation() {
     const forms = document.querySelectorAll('form[data-validate]');
 
@@ -99,7 +90,6 @@ function validateForm(form) {
         }
     });
 
-    // Email validation
     const emailFields = form.querySelectorAll('input[type="email"]');
     emailFields.forEach(field => {
         if (field.value && !isValidEmail(field.value)) {
@@ -108,8 +98,7 @@ function validateForm(form) {
         }
     });
 
-    // Password match validation
-    const password = form.querySelector('input[name="password"]');
+    const password        = form.querySelector('input[name="password"]');
     const confirmPassword = form.querySelector('input[name="confirm_password"]');
 
     if (password && confirmPassword && password.value !== confirmPassword.value) {
@@ -122,7 +111,6 @@ function validateForm(form) {
 
 function showFieldError(field, message) {
     clearFieldError(field);
-
     field.classList.add('error');
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
@@ -130,27 +118,21 @@ function showFieldError(field, message) {
     errorDiv.style.color = 'var(--error-color)';
     errorDiv.style.fontSize = '0.875rem';
     errorDiv.style.marginTop = '0.25rem';
-
     field.parentNode.appendChild(errorDiv);
 }
 
 function clearFieldError(field) {
     field.classList.remove('error');
     const errorDiv = field.parentNode.querySelector('.field-error');
-    if (errorDiv) {
-        errorDiv.remove();
-    }
+    if (errorDiv) errorDiv.remove();
 }
 
 function isValidEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-// ==================== NOTIFICATIONS ====================
 function initNotifications() {
-    // Request notification permission if supported
     if ('Notification' in window && Notification.permission === 'default') {
-        // Show a subtle prompt
         const notifBanner = document.createElement('div');
         notifBanner.className = 'notification-banner';
         notifBanner.innerHTML = `
@@ -186,7 +168,6 @@ function initNotifications() {
     }
 }
 
-
 function showBrowserNotification(title, options) {
     if ('Notification' in window && Notification.permission === 'granted') {
         const notification = new Notification(title, {
@@ -195,7 +176,6 @@ function showBrowserNotification(title, options) {
             ...options
         });
 
-        // Play alarm sound
         const audio = new Audio('../assets/sound/alarm.mp3');
         audio.play().catch(error => {
             console.log('Audio play failed (interaction required first):', error);
@@ -208,12 +188,10 @@ function showBrowserNotification(title, options) {
     }
 }
 
-// ==================== CHECK FOR REMINDERS ====================
 function checkReminders() {
-    // Poll for reminders every 30 seconds
     setInterval(async () => {
         try {
-            const response = await fetch('../api/check_reminders.php');
+            const response = await fetch('/medicure/api/check_reminders.php');
             const result = await response.json();
 
             if (result.success && result.reminders && result.reminders.length > 0) {
@@ -228,10 +206,9 @@ function checkReminders() {
         } catch (error) {
             console.error('Error checking reminders:', error);
         }
-    }, 5000); // Every 5 seconds for better accuracy
+    }, 5000);
 }
 
-// ==================== UTILITY FUNCTIONS ====================
 function showAlert(message, type = 'info') {
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type}`;
@@ -270,30 +247,23 @@ function formatDate(date) {
 }
 
 function updateStats() {
-    // Refresh the page to update statistics
-    // In a more advanced implementation, you could update stats dynamically
     const takenCount = document.querySelectorAll('.schedule-item.taken').length;
-    const statCard = document.querySelector('.stat-card:nth-child(3) h3');
-    if (statCard) {
-        statCard.textContent = takenCount;
-    }
+    const statCard   = document.querySelector('.stat-card:nth-child(3) h3');
+    if (statCard) statCard.textContent = takenCount;
 }
 
-// ==================== DELETE CONFIRMATION ====================
 function confirmDelete(medicineId, medicineName) {
     if (confirm(`Are you sure you want to delete "${medicineName}"?`)) {
         window.location.href = `delete_medicine.php?id=${medicineId}`;
     }
 }
 
-// ==================== TIME INPUT HELPERS ====================
 function addTimeInput() {
     const container = document.getElementById('times-container');
     if (!container) return;
 
     const timeCount = container.querySelectorAll('.time-input').length;
-
-    const timeDiv = document.createElement('div');
+    const timeDiv   = document.createElement('div');
     timeDiv.className = 'form-group time-input';
     timeDiv.innerHTML = `
         <label>Time ${timeCount + 1}</label>
@@ -306,7 +276,6 @@ function addTimeInput() {
     container.appendChild(timeDiv);
 }
 
-// ==================== FILE UPLOAD PREVIEW ====================
 function previewFile(input) {
     const preview = document.getElementById('file-preview');
     if (!preview) return;
@@ -314,47 +283,30 @@ function previewFile(input) {
     const file = input.files[0];
     if (file) {
         const reader = new FileReader();
-
         reader.onload = function (e) {
             if (file.type.startsWith('image/')) {
                 preview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 200px; border-radius: var(--radius-sm);">`;
             } else {
-                preview.innerHTML = `<p>ðŸ“„ ${file.name}</p>`;
+                preview.innerHTML = `<p>📄 ${file.name}</p>`;
             }
         };
-
         reader.readAsDataURL(file);
     }
 }
 
-// ==================== ANIMATIONS ====================
 const style = document.createElement('style');
 style.textContent = `
     @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
+        from { transform: translateX(100%); opacity: 0; }
+        to   { transform: translateX(0);   opacity: 1; }
     }
-    
     @keyframes slideOut {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
+        from { transform: translateX(0);   opacity: 1; }
+        to   { transform: translateX(100%); opacity: 0; }
     }
 `;
 document.head.appendChild(style);
 
-// Make functions globally accessible
 window.confirmDelete = confirmDelete;
-window.addTimeInput = addTimeInput;
-window.previewFile = previewFile;
+window.addTimeInput  = addTimeInput;
+window.previewFile   = previewFile;
