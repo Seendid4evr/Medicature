@@ -2,8 +2,8 @@
 # Medicature — .gitignore
 # =============================================
 
-# ---- Sensitive Config (NEVER push these) ----
-config/database.php
+# ---- Sensitive Config ----
+# config/mail.php is excluded (contains real SMTP password)
 config/mail.php
 
 # ---- Vendor / Dependencies (use Composer) ----
