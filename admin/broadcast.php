@@ -6,10 +6,8 @@ $conn = $db->getConnection();
 $success = '';
 $error = '';
 
-// Get user count for display
 $totalUsers = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $subject = trim($_POST['subject'] ?? '');
     $messageBody = trim($_POST['message'] ?? '');
@@ -18,14 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($subject) || empty($messageBody)) {
         $error = "Subject and message body are required.";
     } else {
-        // Build recipient list
+        
         if ($targetGroup === 'all') {
             $stmt = $conn->query("SELECT name, email FROM users WHERE email IS NOT NULL AND email != ''");
         } elseif ($targetGroup === 'active') {
-            // Users with active medicines (engaged users)
+            
             $stmt = $conn->query("SELECT DISTINCT u.name, u.email FROM users u JOIN medicines m ON u.id = m.user_id WHERE m.active = 1 AND u.email IS NOT NULL");
         } else {
-            // Specific user
+            
             $stmt = $conn->prepare("SELECT name, email FROM users WHERE email = ?");
             $stmt->execute([$targetGroup]);
         }
@@ -34,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($recipients)) {
             $error = "No recipients found for the selected group.";
         } else {
-            // Load mailer config
+            
             $mailConfig = require '../config/mail.php';
             
-            // Load PHPMailer
+            
             require_once '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
             require_once '../vendor/phpmailer/phpmailer/src/SMTP.php';
             require_once '../vendor/phpmailer/phpmailer/src/Exception.php';

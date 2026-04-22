@@ -8,7 +8,6 @@ $db = new Database();
 $conn = $db->getConnection();
 $userId = getUserId();
 
-// Get today's medicines with schedules
 $today = date('Y-m-d');
 $stmt = $conn->prepare("
     SELECT 
@@ -34,7 +33,6 @@ $stmt = $conn->prepare("
 $stmt->execute([$today, $userId, $today, $today]);
 $todaySchedule = $stmt->fetchAll();
 
-// Get total active medicines count
 $stmt = $conn->prepare("SELECT COUNT(*) as count FROM medicines WHERE user_id = ? AND active = 1");
 $stmt->execute([$userId]);
 $medicineCount = $stmt->fetch()['count'];

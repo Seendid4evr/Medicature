@@ -21,13 +21,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_password'])) {
     } elseif (strlen($new_password) < 8) {
         $error = "New password must be at least 8 characters long.";
     } else {
-        // Verify current password
+        
         $stmt = $conn->prepare("SELECT password_hash FROM users WHERE id = :id");
         $stmt->execute(['id' => $userId]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($current_password, $user['password_hash'])) {
-            // Update password
+            
             $new_hash = password_hash($new_password, PASSWORD_BCRYPT);
             $update_stmt = $conn->prepare("UPDATE users SET password_hash = :hash WHERE id = :id");
             if ($update_stmt->execute(['hash' => $new_hash, 'id' => $userId])) {

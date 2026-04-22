@@ -8,26 +8,24 @@ $db = new Database();
 $conn = $db->getConnection();
 $userId = getUserId();
 
-// Fetch dependents for the filter dropdown
 $stmt = $conn->prepare("SELECT id, name FROM dependents WHERE user_id = ? ORDER BY name ASC");
 $stmt->execute([$userId]);
 $dependents = $stmt->fetchAll();
 
-// Determine whose report we are generating
 $targetDependentId = $_GET['dependent_id'] ?? '';
-$targetName = "My"; // Default for primary user
+$targetName = "My"; 
 
 $filterQuery = " AND m.dependent_id IS NULL ";
 $params = [$userId];
 
 if ($targetDependentId === 'all') {
-    $filterQuery = ""; // No dependent filter, show all
+    $filterQuery = ""; 
     $targetName = "All Family";
 } else if (is_numeric($targetDependentId)) {
     $filterQuery = " AND m.dependent_id = ? ";
     $params[] = $targetDependentId;
     
-    // Find the dependent's name
+    
     foreach ($dependents as $dep) {
         if ($dep['id'] == $targetDependentId) {
             $targetName = $dep['name'] . "'s";
@@ -36,7 +34,6 @@ if ($targetDependentId === 'all') {
     }
 }
 
-// Fetch active medicines based on filter
 $stmt = $conn->prepare("
     SELECT 
         m.*,
@@ -54,7 +51,6 @@ $stmt = $conn->prepare("
 $stmt->execute($params);
 $activeMedicines = $stmt->fetchAll();
 
-// Fetch last 7 days adherence stats (Simple Version)
 $sevenDaysAgo = date('Y-m-d', strtotime('-7 days'));
 $stmt = $conn->prepare("
     SELECT 

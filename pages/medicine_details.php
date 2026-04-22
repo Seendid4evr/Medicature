@@ -13,8 +13,6 @@ if (empty($id) || !is_numeric($id)) {
 $db = new Database();
 $conn = $db->getConnection();
 
-// Fetch the user's medicine to ensure they have access to it, 
-// though viewing general drug info could be open, let's just fetch the generic info.
 $stmt = $conn->prepare("
     SELECT * 
     FROM bd_medicines 

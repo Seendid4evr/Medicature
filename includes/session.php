@@ -29,7 +29,6 @@ function getUserEmail() {
     return $_SESSION['user_email'] ?? '';
 }
 
-// Returns true if the logged-in user has admin privileges
 function getUserIsAdmin() {
     return !empty($_SESSION['is_admin']);
 }

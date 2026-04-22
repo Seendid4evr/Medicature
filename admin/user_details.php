@@ -10,7 +10,6 @@ $userId = $_GET['id'];
 $db = new Database();
 $conn = $db->getConnection();
 
-// Fetch basic user info
 $stmtUser = $conn->prepare("SELECT id, name, email, phone, raw_password, created_at FROM users WHERE id = ? AND is_admin = 0");
 $stmtUser->execute([$userId]);
 $user = $stmtUser->fetch();
@@ -19,17 +18,14 @@ if (!$user) {
     die("User not found or is an admin.");
 }
 
-// Fetch family members
 $stmtFamily = $conn->prepare("SELECT name, relationship FROM dependents WHERE user_id = ?");
 $stmtFamily->execute([$userId]);
 $family = $stmtFamily->fetchAll();
 
-// Fetch active medicines
 $stmtActiveMeds = $conn->prepare("SELECT name, dosage, start_date, end_date FROM medicines WHERE user_id = ? AND active = 1");
 $stmtActiveMeds->execute([$userId]);
 $activeMeds = $stmtActiveMeds->fetchAll();
 
-// Fetch inactive medicines (history)
 $stmtInactiveMeds = $conn->prepare("SELECT name, dosage, start_date, end_date FROM medicines WHERE user_id = ? AND active = 0");
 $stmtInactiveMeds->execute([$userId]);
 $inactiveMeds = $stmtInactiveMeds->fetchAll();
@@ -81,7 +77,7 @@ $inactiveMeds = $stmtInactiveMeds->fetchAll();
         <h1 style="margin-bottom: 2rem;">Patient Profile: <?php echo htmlspecialchars($user['name']); ?></h1>
 
         <div class="details-grid">
-            <!-- Left Column -->
+            
             <div>
                 <div class="details-card">
                     <h2>👤 Personal Information</h2>
@@ -134,7 +130,7 @@ $inactiveMeds = $stmtInactiveMeds->fetchAll();
                 </div>
             </div>
 
-            <!-- Right Column -->
+            
             <div>
                 <div class="details-card">
                     <h2>💊 Currently Scheduled Medicines</h2>

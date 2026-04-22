@@ -9,9 +9,9 @@ class Database {
         date_default_timezone_set('Asia/Dhaka');
     }
     private $host     = 'localhost';
-    private $db_name  = 'medicure';    // <-- change if needed
-    private $username = 'root';        // <-- change for production
-    private $password = '';            // <-- change for production
+    private $db_name  = 'medicure';    
+    private $username = 'root';        
+    private $password = '';            
     private $conn;
 
     public function getConnection() {

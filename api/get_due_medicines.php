@@ -9,7 +9,6 @@ $userId = getUserId();
 $db = new Database();
 $conn = $db->getConnection();
 
-// Get medicines that are due in the next 60 minutes or already overdue today
 $now       = new DateTime();
 $soon      = (clone $now)->modify('+60 minutes');
 
@@ -44,16 +43,15 @@ $stmt = $conn->prepare("
     ORDER BY ms.time ASC
 ");
 $stmt->execute([
-    $soonTime, $nowTime,    // DUE_SOON range
-    $nowTime,               // OVERDUE check
-    $now->format('Y-m-d H:i:s'), $today,  // taken_today
+    $soonTime, $nowTime,    
+    $nowTime,               
+    $now->format('Y-m-d H:i:s'), $today,  
     $userId,
-    $nowTime, $soonTime, $nowTime  // WHERE clause
+    $nowTime, $soonTime, $nowTime  
 ]);
 
 $dues = $stmt->fetchAll();
 
-// Filter out already taken
 $alerts = array_values(array_filter($dues, fn($d) => $d['taken_today'] == 0));
 
 echo json_encode([

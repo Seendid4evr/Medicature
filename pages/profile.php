@@ -14,7 +14,7 @@ $success = '';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle Profile Update
+    
     if (isset($_POST['update_profile'])) {
         $name = sanitizeInput($_POST['name'] ?? '');
         if (empty($name)) {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     
-    // Handle Password Change
+    
     if (isset($_POST['change_password'])) {
         $currentPwd = $_POST['current_password'] ?? '';
         $newPwd = $_POST['new_password'] ?? '';
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (strlen($newPwd) < 8) {
             $error = 'New password must be at least 8 characters.';
         } else {
-            // Verify current password
+            
             if (password_verify($currentPwd, $user['password_hash'])) {
                 $newHash = password_hash($newPwd, PASSWORD_BCRYPT, ['cost' => 10]);
                 try {
@@ -63,8 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-
-
 
 }
 ?>
@@ -97,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
             
             <div style="display: flex; flex-direction: column; gap: 2rem;">
-                <!-- Profile Form -->
+                
                 <div style="background: var(--card-bg); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-md);">
                     <h3>Personal Information</h3>
                     <form method="POST" action="">
@@ -117,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </form>
                 </div>
 
-                <!-- Password Change Form -->
+                
                 <div style="background: var(--card-bg); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-md);">
                     <h3>Change Password</h3>
                     <form method="POST" action="" data-validate>
@@ -142,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
             
-            <!-- Notification Settings -->
+            
             <div style="background: var(--card-bg); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-md); height: fit-content;">
                 <h3>Notifications & Sound</h3>
                 <p>Manage your medication reminders.</p>
@@ -161,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
 
-            <!-- Contact for Deletion -->
+            
             <div style="background: var(--card-bg); border-radius: var(--radius); padding: 2rem; box-shadow: var(--shadow-md);">
                 <h3>Account Management</h3>
                 <p>For account deletion and other queries, please contact us at:</p>
@@ -170,7 +168,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <li>📱 017xxxxxxxx</li>
                 </ul>
             </div>
-
 
         </div>
     </div>

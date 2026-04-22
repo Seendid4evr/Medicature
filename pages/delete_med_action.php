@@ -13,13 +13,13 @@ if ($medicineId) {
 
         $conn->beginTransaction();
 
-        // Verify ownership before deleting
+        
         $stmt = $conn->prepare("SELECT id, name FROM medicines WHERE id = ? AND user_id = ?");
         $stmt->execute([$medicineId, $userId]);
         $medicine = $stmt->fetch();
 
         if ($medicine) {
-            // Delete dependent records first (FK safety)
+            
             $conn->prepare("DELETE FROM reminders WHERE medicine_id = ?")->execute([$medicineId]);
             $conn->prepare("DELETE FROM schedules WHERE medicine_id = ?")->execute([$medicineId]);
             $conn->prepare("DELETE FROM medicines WHERE id = ?")->execute([$medicineId]);

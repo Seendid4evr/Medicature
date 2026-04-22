@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $stmt->execute([$name, $email, $passwordHash, $password, $phone ?: null]);
                 $success = "Patient successfully added!";
-                // Clear post variables to avoid resubmission
+                
                 $_POST = array();
             } catch (PDOException $e) {
                 $error = "Failed to add patient.";

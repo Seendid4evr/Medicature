@@ -19,7 +19,7 @@ function uploadPrescription($file, $userId) {
     }
     
     $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
-    $maxSize = 5 * 1024 * 1024; // 5MB
+    $maxSize = 5 * 1024 * 1024; 
     
     if (!in_array($file['type'], $allowedTypes)) {
         return ['success' => false, 'message' => 'Only JPG, PNG, and PDF files are allowed'];

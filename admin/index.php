@@ -5,7 +5,6 @@ $db = new Database();
 $conn = $db->getConnection();
 $userId = getUserId();
 
-// Fetch some stats for dashboard
 $totalUsers = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
 $totalMeds = $conn->query("SELECT COUNT(*) FROM medicines WHERE active = 1")->fetchColumn();
 $totalOrders = $conn->query("SELECT COUNT(*) FROM orders")->fetchColumn();

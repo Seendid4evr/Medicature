@@ -5,13 +5,13 @@ class Database {
     }
     private $host = 'localhost';
     private $db_name = 'medicure';
-    private $username = 'root'; // Change for production
-    private $password = '';     // Change for production
+    private $username = 'root'; 
+    private $password = '';     
     private $conn;
 
     public function getConnection() {
         if ($this->conn !== null) {
-            return $this->conn; // reuse existing connection
+            return $this->conn; 
         }
         try {
             $this->conn = new PDO(

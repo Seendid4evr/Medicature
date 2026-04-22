@@ -11,7 +11,6 @@ $db = new Database();
 $conn = $db->getConnection();
 $userId = getUserId();
 
-// Handle Form Submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'add_dependent') {
     $name = trim($_POST['name'] ?? '');
     $relationship = trim($_POST['relationship'] ?? '');
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-// Handle Deletion
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     try {
         $stmt = $conn->prepare("DELETE FROM dependents WHERE id = ? AND user_id = ?");
@@ -40,7 +38,6 @@ if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     }
 }
 
-// Fetch Dependents
 $stmt = $conn->prepare("
     SELECT d.*, COUNT(m.id) as med_count 
     FROM dependents d
@@ -135,7 +132,7 @@ $dependents = $stmt->fetchAll();
         <?php endif; ?>
         
         <div class="family-grid">
-            <!-- Add Form -->
+            
             <div class="add-form-card">
                 <h3>➕ Add Family Member</h3>
                 <form method="POST" action="">
@@ -160,7 +157,7 @@ $dependents = $stmt->fetchAll();
                 </form>
             </div>
 
-            <!-- Family Members List -->
+            
             <div>
                 <?php if (empty($dependents)): ?>
                     <div class="empty-state">

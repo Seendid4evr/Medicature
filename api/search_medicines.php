@@ -16,7 +16,7 @@ try {
     $db = new Database();
     $conn = $db->getConnection();
     
-    // Search by brand name or generic name, prioritize brand name
+    
     $stmt = $conn->prepare("
         SELECT id, brand_name, generic, dosage_form, strength, manufacturer
         FROM bd_medicines 

@@ -14,7 +14,6 @@ if (!$medicineId) {
     exit();
 }
 
-// Fetch medicine details
 $stmt = $conn->prepare("
     SELECT m.*, GROUP_CONCAT(s.time_of_day) as times
     FROM medicines m
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $conn->beginTransaction();
             
-            // Update medicine details
+            
             $stmt = $conn->prepare("
                 UPDATE medicines 
                 SET name = ?, dosage = ?, notes = ?, start_date = ?, end_date = ?
@@ -55,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ");
             $stmt->execute([$name, $dosage, $notes, $startDate, $endDate ?: null, $medicineId, $userId]);
             
-            // Update schedules (delete old, insert new)
+            
             $stmt = $conn->prepare("DELETE FROM schedules WHERE medicine_id = ?");
             $stmt->execute([$medicineId]);
             
@@ -69,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $conn->commit();
             $success = 'Medicine updated successfully!';
             
-            // Refresh medicine data
+            
             $stmt = $conn->prepare("
                 SELECT m.*, GROUP_CONCAT(s.time_of_day) as times
                 FROM medicines m

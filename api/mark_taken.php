@@ -29,7 +29,7 @@ try {
     $db = new Database();
     $conn = $db->getConnection();
     
-    // Verify the medicine belongs to the user
+    
     $stmt = $conn->prepare("SELECT id FROM medicines WHERE id = ? AND user_id = ?");
     $stmt->execute([$medicineId, $userId]);
     
@@ -38,7 +38,7 @@ try {
         exit();
     }
     
-    // Check if reminder exists for today
+    
     $today = date('Y-m-d');
     $stmt = $conn->prepare("
         SELECT id FROM reminders 
@@ -51,7 +51,7 @@ try {
     $reminder = $stmt->fetch();
     
     if ($reminder) {
-        // Update existing reminder
+        
         $stmt = $conn->prepare("
             UPDATE reminders 
             SET status = 'taken', taken_at = ? 
@@ -59,7 +59,7 @@ try {
         ");
         $stmt->execute([$takenAt, $reminder['id']]);
     } else {
-        // Create new reminder record
+        
         $stmt = $conn->prepare("
             INSERT INTO reminders 
             (user_id, medicine_id, schedule_id, reminder_datetime, status, taken_at)

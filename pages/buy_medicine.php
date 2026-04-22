@@ -8,7 +8,6 @@ $db = new Database();
 $conn = $db->getConnection();
 $userId = getUserId();
 
-// Fetch currently active medicines for the user
 $stmt = $conn->prepare("SELECT name, dosage, start_date FROM medicines WHERE user_id = ? AND active = 1 ORDER BY created_at DESC");
 $stmt->execute([$userId]);
 $medicines = $stmt->fetchAll();
@@ -93,7 +92,7 @@ $medicines = $stmt->fetchAll();
                         <p>Started on: <?php echo date('M j, Y', strtotime($med['start_date'])); ?></p>
                     </div>
                     <div>
-                        <!-- Link to Arogga or simulated pharmacy search -->
+                        
                         <a href="https://www.arogga.com/search?q=<?php echo urlencode($med['name']); ?>" 
                            target="_blank" 
                            class="buy-btn">

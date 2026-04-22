@@ -25,18 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch();
 
         if ($user) {
-            // Generate secure token
+            
             $token = bin2hex(random_bytes(32));
             $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-            // Delete any old tokens for this user
+            
             $conn->prepare("DELETE FROM password_reset_tokens WHERE user_id = ?")->execute([$user['id']]);
 
-            // Store new token
+            
             $conn->prepare("INSERT INTO password_reset_tokens (user_id, token, expires_at) VALUES (?, ?, ?)")
                  ->execute([$user['id'], $token, $expires]);
 
-            // Send email via PHPMailer
+            
             $mailConfig = require 'config/mail.php';
             require_once 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
             require_once 'vendor/phpmailer/phpmailer/src/SMTP.php';
@@ -75,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->send();
                 $success = "Password reset link sent to your email. Check your inbox!";
             } catch (Exception $e) {
-                // For local dev, show the reset link directly
+                
                 $success = "Reset link generated (SMTP not configured). Your reset link: <a href='$resetLink'>Click here to reset</a>";
             }
         } else {
-            // Don't reveal whether email exists
+            
             $success = "If that email is registered, you will receive a reset link shortly.";
         }
     }

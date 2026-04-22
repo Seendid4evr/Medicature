@@ -14,12 +14,12 @@ try {
     $conn = $db->getConnection();
     $userId = getUserId();
     
-    // LAZY GENERATION: Check for missed schedules in the last 15 minutes and generate reminders
+    
     $currentDate = date('Y-m-d');
     $currentTime = date('H:i:s');
     $fifteenMinsAgo = date('H:i:s', strtotime('-15 minutes'));
     
-    // Find due schedules
+    
     $sql = "
         SELECT 
             m.id as medicine_id,
@@ -40,7 +40,7 @@ try {
     $dueSchedules = $stmt->fetchAll();
     
     foreach ($dueSchedules as $schedule) {
-        // Check if reminder exists for today
+        
         $checkStmt = $conn->prepare("
             SELECT id FROM reminders 
             WHERE user_id = ? 
@@ -51,7 +51,7 @@ try {
         $checkStmt->execute([$userId, $schedule['medicine_id'], $schedule['schedule_id'], $currentDate]);
         
         if (!$checkStmt->fetch()) {
-            // Create reminder logic
+            
             $reminderTime = $currentDate . ' ' . $schedule['time_of_day'];
             $req = $conn->prepare("
                 INSERT INTO reminders (user_id, medicine_id, schedule_id, reminder_datetime, status)
@@ -61,7 +61,7 @@ try {
         }
     }
 
-    // Now fetch pending/sent reminders to show to user
+    
     $stmt = $conn->prepare("
         SELECT 
             r.id,
@@ -79,7 +79,7 @@ try {
     $stmt->execute([$userId]);
     $reminders = $stmt->fetchAll();
     
-    // Mark as sent so we don't notify again in next poll (frontend will handle 'sent' logic if needed, but here we just pop 'pending')
+    
     if (!empty($reminders)) {
         $ids = array_column($reminders, 'id');
         $placeholders = implode(',', array_fill(0, count($ids), '?'));

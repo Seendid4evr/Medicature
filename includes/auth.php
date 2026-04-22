@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
 
-// Singleton DB connection — avoids creating a new connection (+ init_command) on every auth call
 function getDbConnection() {
     static $conn = null;
     if ($conn === null) {
@@ -14,7 +13,7 @@ function getDbConnection() {
 function registerUser($name, $email, $password, $phone = null) {
     $conn = getDbConnection();
     
-    // Validate inputs
+    
     if (empty($name) || empty($email) || empty($password)) {
         return ['success' => false, 'message' => 'All fields are required'];
     }
@@ -27,21 +26,21 @@ function registerUser($name, $email, $password, $phone = null) {
         return ['success' => false, 'message' => 'Password must be at least 8 characters'];
     }
 
-    // Block reserved admin emails
+    
     $adminEmails = ['seendidpc@gmail.com', 'salehkabir236@gmail.com', 'seendidsalehs@outlook.com'];
     if (in_array(strtolower(trim($email)), $adminEmails)) {
         return ['success' => false, 'message' => 'This email address is reserved.'];
     }
     
-    // Check if email exists
+    
     $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
     if ($stmt->fetch()) {
         return ['success' => false, 'message' => 'Email already registered'];
     }
     
-    // Hash password and insert user
-    // Cost 10 is the bcrypt default and safe for production; lower to 9 locally if login feels slow
+    
+    
     $passwordHash = password_hash($password, PASSWORD_BCRYPT, ['cost' => 10]);
     $stmt = $conn->prepare("INSERT INTO users (name, email, password_hash, raw_password, phone, is_admin) VALUES (?, ?, ?, ?, ?, 0)");
     
@@ -53,7 +52,6 @@ function registerUser($name, $email, $password, $phone = null) {
         return ['success' => false, 'message' => 'Registration failed. Please try again.'];
     }
 }
-
 
 function loginUser($email, $password) {
     $conn = getDbConnection();
@@ -75,8 +73,6 @@ function loginUser($email, $password) {
     
     return ['success' => false, 'message' => 'Invalid email or password'];
 }
-
-
 
 function logoutUser() {
     $_SESSION = [];

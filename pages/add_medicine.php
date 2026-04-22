@@ -26,10 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = new Database();
             $conn = $db->getConnection();
             
-            // Start transaction
+            
             $conn->beginTransaction();
             
-            // Handle prescription upload
+            
             $prescriptionFile = null;
             if (!empty($_FILES['prescription']['name'])) {
                 $upload = uploadPrescription($_FILES['prescription'], $userId);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             if (!$error) {
-                // Insert medicine
+                
                 $stmt = $conn->prepare("
                     INSERT INTO medicines (user_id, name, dosage, notes, start_date, end_date, prescription_file, bd_medicine_id, dependent_id)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$userId, $name, $dosage, $notes, $startDate, $endDate ?: null, $prescriptionFile, $bdMedicineId, $dependentId]);
                 $medicineId = $conn->lastInsertId();
                 
-                // Insert schedules
+                
                 $stmt = $conn->prepare("INSERT INTO schedules (medicine_id, time_of_day) VALUES (?, ?)");
                 foreach ($times as $time) {
                     if (!empty($time)) {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $conn->commit();
                 $success = 'Medicine added successfully!';
                 
-                // Redirect after 2 seconds
+                
                 header("refresh:2;url=medicines.php");
             } else {
                 $conn->rollBack();
@@ -73,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch user's dependents
 $dependents = [];
 try {
     $db = new Database();
@@ -82,7 +81,7 @@ try {
     $stmt->execute([getUserId()]);
     $dependents = $stmt->fetchAll();
 } catch (PDOException $e) {
-    // Ignore error for dropdown population
+    
 }
 ?>
 <!DOCTYPE html>

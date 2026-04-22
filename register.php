@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password        = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
-    // Block admin emails from self-registering
+    
     $adminEmails = ['seendidpc@gmail.com', 'salehkabir236@gmail.com'];
     if (in_array(strtolower($email), $adminEmails)) {
         $error = 'This email address is reserved. Please use a different email.';
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="register-wrapper">
-    <!-- Left Brand Panel -->
+    
     <div class="register-brand">
         <div class="big-icon">🏥</div>
         <h1>Welcome to Medicature</h1>
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </ul>
     </div>
 
-    <!-- Right Form Panel -->
+    
     <div class="register-panel">
         <div class="auth-card">
             <h2 style="margin: 0 0 0.5rem; color: #0f172a;">Create Patient Account</h2>

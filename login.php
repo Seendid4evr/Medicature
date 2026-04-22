@@ -3,7 +3,7 @@ require_once 'includes/session.php';
 require_once 'includes/auth.php';
 
 if (isLoggedIn()) {
-    // Redirect based on role
+    
     if (getUserIsAdmin()) {
         header('Location: admin/index.php');
     } else {
@@ -13,7 +13,7 @@ if (isLoggedIn()) {
 }
 
 $error = '';
-$mode = $_GET['mode'] ?? 'customer'; // 'customer' or 'admin'
+$mode = $_GET['mode'] ?? 'customer'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email    = trim($_POST['email'] ?? '');
@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $result = loginUser($email, $password);
     if ($result['success']) {
-        // Check role match
+        
         if ($postMode === 'admin' && !getUserIsAdmin()) {
-            // Log them back out — they tried to admin-login as a regular user
+            
             session_unset();
             session_destroy();
             session_start();
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 <div class="login-wrapper">
-    <!-- Left Brand Panel -->
+    
     <div class="login-brand">
         <div class="big-icon">💊</div>
         <h1>Medicature</h1>
@@ -154,12 +154,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </ul>
     </div>
 
-    <!-- Right Login Panel -->
+    
     <div class="login-panel">
         <div class="auth-card">
             <h2 style="margin: 0 0 1.5rem; color: #0f172a;">Welcome Back</h2>
 
-            <!-- Role Selector Tabs -->
+            
             <div class="role-tabs">
                 <button type="button" class="role-tab <?php echo $mode !== 'admin' ? 'active-customer' : ''; ?>"
                         onclick="switchMode('customer')">🏥 Patient Login</button>

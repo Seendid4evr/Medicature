@@ -63,7 +63,7 @@ requireLogin();
         </div>
         
         <div class="calculator-grid">
-            <!-- BMI Calculator -->
+            
             <div class="calculator-card">
                 <h2>BMI Calculator</h2>
                 <form id="bmiForm" onsubmit="calculateBMI(event)">
@@ -85,7 +85,7 @@ requireLogin();
                 </div>
             </div>
 
-            <!-- Ideal Weight Calculator -->
+            
             <div class="calculator-card">
                 <h2>Ideal Weight Calculator</h2>
                 <form id="iwbForm" onsubmit="calculateIdealWeight(event)">

@@ -10,11 +10,10 @@ $userId = getUserId();
 $success = '';
 $error = '';
 
-// Handle creating an order from a refill request
 if (isset($_GET['refill_id']) && is_numeric($_GET['refill_id'])) {
     $refillId = $_GET['refill_id'];
     
-    // Verify medicine belongs to user
+    
     $stmt = $conn->prepare("
         SELECT m.name
         FROM medicines m
@@ -24,25 +23,25 @@ if (isset($_GET['refill_id']) && is_numeric($_GET['refill_id'])) {
     $medicine = $stmt->fetch();
     
     if ($medicine) {
-        // Simulate a realistic price (BDT) since bd_medicines has no price column
+        
         $price = rand(50, 500);
-        $quantity = 1; // Default to 1 pack/box
+        $quantity = 1; 
         
         try {
             $conn->beginTransaction();
             
-            // Create Order
+            
             $stmtOrder = $conn->prepare("
                 INSERT INTO orders (user_id, status, total_amount, shipping_address) 
                 VALUES (?, 'Pending', ?, 'Default User Address')
             ");
             $total = $price * $quantity;
-            // Add a simple 50 BDT delivery fee
+            
             $totalAmount = $total + 50; 
             $stmtOrder->execute([$userId, $totalAmount]);
             $orderId = $conn->lastInsertId();
             
-            // Create Order Item
+            
             $stmtItem = $conn->prepare("
                 INSERT INTO order_items (order_id, medicine_name, quantity, price) 
                 VALUES (?, ?, ?, ?)
@@ -60,7 +59,6 @@ if (isset($_GET['refill_id']) && is_numeric($_GET['refill_id'])) {
     }
 }
 
-// Fetch user's orders history
 $stmtOrders = $conn->prepare("
     SELECT o.*, 
            (SELECT GROUP_CONCAT(CONCAT(quantity, 'x ', medicine_name) SEPARATOR ', ') 

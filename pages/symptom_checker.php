@@ -213,13 +213,13 @@ requireLogin();
 
     <div class="container">
         <div class="checker-wrapper">
-            <!-- Page Header -->
+            
             <div class="page-header">
                 <h1><i class="fas fa-stethoscope" style="color:#3b82f6;"></i> AI Symptom Checker</h1>
                 <p>Describe your symptoms and get general medicine guidance — powered by our built-in medical knowledge base.</p>
             </div>
 
-            <!-- PROMINENT DISCLAIMER -->
+            
             <div class="disclaimer-banner">
                 <i class="fas fa-triangle-exclamation"></i>
                 <div>
@@ -228,9 +228,9 @@ requireLogin();
                 </div>
             </div>
 
-            <!-- Chat UI -->
+            
             <div class="chat-container">
-                <!-- Header -->
+                
                 <div class="chat-header">
                     <i class="fas fa-robot"></i>
                     <div>
@@ -239,7 +239,7 @@ requireLogin();
                     </div>
                 </div>
 
-                <!-- Quick chips -->
+                
                 <div class="quick-chips">
                     <span class="chip" onclick="fillChip('I have fever')">🌡️ Fever</span>
                     <span class="chip" onclick="fillChip('I have a headache')">🤕 Headache</span>
@@ -251,7 +251,7 @@ requireLogin();
                     <span class="chip" onclick="fillChip('I have a cough')">😮‍💨 Cough</span>
                 </div>
 
-                <!-- Messages -->
+                
                 <div class="chat-body" id="chatBody">
                     <div class="message ai">
                         Hello <strong><?php echo htmlspecialchars(getUserName()); ?></strong>! 👋
@@ -265,7 +265,7 @@ requireLogin();
                     </div>
                 </div>
 
-                <!-- Input -->
+                
                 <div class="chat-input-area">
                     <input type="text" id="symptomInput" class="chat-input"
                            placeholder="e.g. I have fever and headache..."
@@ -274,7 +274,7 @@ requireLogin();
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
-            </div><!-- /chat-container -->
+            </div>
         </div>
     </div>
 

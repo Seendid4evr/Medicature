@@ -1,5 +1,5 @@
 <?php
-// includes/navbar.php
+
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 <nav class="navbar">

@@ -9,7 +9,6 @@ $db = new Database();
 $conn = $db->getConnection();
 $userId = getUserId();
 
-// Get all medicines with their schedules
 $stmt = $conn->prepare("
     SELECT 
         m.*,

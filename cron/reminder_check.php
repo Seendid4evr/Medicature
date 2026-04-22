@@ -4,12 +4,10 @@ require_once __DIR__ . '/../config/database.php';
 $db = new Database();
 $conn = $db->getConnection();
 
-// Get current datetime
 $now = date('Y-m-d H:i:00');
 $currentDate = date('Y-m-d');
 $currentTime = date('H:i:00');
 
-// Find medicines that should trigger reminders now
 $sql = "
     SELECT 
         m.id as medicine_id,
@@ -34,7 +32,7 @@ $stmt->execute([$currentDate, $currentDate, $currentTime]);
 $reminders = $stmt->fetchAll();
 
 foreach ($reminders as $reminder) {
-    // Check if reminder already sent for this datetime
+    
     $checkStmt = $conn->prepare("
         SELECT id FROM reminders 
         WHERE user_id = ? 
@@ -52,7 +50,7 @@ foreach ($reminders as $reminder) {
     ]);
     
     if (!$checkStmt->fetch()) {
-        // Insert new reminder
+        
         $insertStmt = $conn->prepare("
             INSERT INTO reminders 
             (user_id, medicine_id, schedule_id, reminder_datetime, status)
@@ -65,7 +63,7 @@ foreach ($reminders as $reminder) {
             $now
         ]);
         
-        // Send email notification
+        
         sendReminderEmail($reminder);
     }
 }
