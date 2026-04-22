@@ -1,0 +1,68 @@
+Here is the revised prompt, specifically focused on the Work Breakdown Structure (WBS) aligned with the exact Phase-based methodology you provided.
+
+--- COPY BELOW THIS LINE ---
+
+Please generate a professional, detailed 12-slide presentation focusing on the Work Breakdown Structure (WBS) and strategic advantage of a new healthcare web application called "Medicature". Medicature is a lightweight, zero-install, web-based medication management system that uses smart browser notifications to ensure medication adherence. The primary audience includes technical stakeholders and investors. Use a modern, structured corporate medical theme. 
+
+Slide Outline and Content Requirements:
+
+1. Title Slide: 
+- Title: Medicature: Phase-Based Project Execution
+- Subtitle: Engineering a Frictionless Medication Adherence Platform
+
+2. Project Overview & Objective
+- Objective: Build a precise, reliable medication tracker without the overhead of native app installations.
+- Focus: Highlight that the core engineering challenge was creating a reliable web-based alarm system using service workers, executed through a strict Phase-Based WBS methodology.
+
+3. Phase-Based Work Breakdown Structure (WBS) - Overview
+- [Visual Requirement: Create a high-level tree diagram or clear hierarchical list of the 5 main phases]
+- The project followed a strict sequential Phase-based WBS to ensure controlled deliverables at every life cycle stage:
+  1. Initiation Phase
+  2. Design Phase
+  3. Development Phase
+  4. Implementation Phase
+  5. Closure Phase
+
+4. WBS Phase 1: Initiation
+- Requirement Gathering: Analyzed patient needs, identifying the core issue as complex schedules and app store friction.
+- Feasibility Study: Evaluated browser capabilities for background service workers to handle audio alarms.
+- Project Charter: Defined the scope to exclusively focus on adherence, rejecting unnecessary bloat.
+
+5. WBS Phase 2: Design
+- Architecture Planning: Designed the Relational Database schema mapping Users to Medicines and automated Schedules.
+- UI Wireframing: Created low-fidelity mockups of the central dashboard.
+- UI Prototype: Built high-fidelity responsive screens ensuring a mobile-first experience.
+
+6. WBS Phase 3: Development
+- Frontend Coding: Developing the dashboard, notification settings, and profile management using web standard technologies.
+- Backend Development: Built the secure CRUD APIs for handling sensitive prescription data.
+- The Notification Engine (Core Feature): Engineered the algorithms to trigger exact reminder alerts in real-time.
+
+7. WBS Phase 4: Implementation
+- Integration Testing: Connected the frontend UI to the backend alarm schedules.
+- User Acceptance Testing (UAT): Ran pilot tests simulating patient medication timings to ensure 100% trigger accuracy.
+- Deployment: Deployed the secure application to live web servers and configured domain access.
+
+8. WBS Phase 5: Closure
+- Documentation: Finalized the system architecture and database diagrams (ERD, Use Cases).
+- Handover Strategy: Prepared the system for scalable user onboarding and live monitoring.
+
+9. Strategic Advantage: Medicature vs. Patient Aid (com.itmedicus.patientaid)
+- Patient Aid is a heavy, regional application focused on massive data directories (hospitals, doctors, general info). It requires a massive download and continuous updates via the App Store.
+- Medicature is a specialized, surgical tool. It focuses 100% on the medication schedule. It acts as an instant, personal health alarm without the bloat of a directory app.
+
+10. The Power of Web-Based Services
+- Zero Friction: No app store approvals, no initial installations. The user types the URL and is immediately protected.
+- Universal access across PC, Mac, iOS, and Android.
+- Instant, centralized updates mean significantly reduced engineering maintenance costs compared to native apps.
+
+11. Investment and Financial Strategy
+- Low Initial Overhead: Server hosting and domain fees are the primary costs.
+- High-Margin Revenue Streams: Freemium subscriptions for advanced PDF health reports, Family Linking (managing parents' medicine), and B2B API licensing to local clinics.
+- Massive potential ROI due to the rapidly growing global digital health market.
+
+12. The Future: Making Medicature "Untouchable" (The Offline Skeleton App)
+- To eliminate our only weakness (reliance on active internet), the next strategic move is the "Offline Skeleton App" (via Progressive Web App/Capacitor technology). 
+- It will cache the user's schedule locally on the device. Even during complete internet outages, the local device will still trigger alarms perfectly on time, syncing to the cloud instantly upon reconnection. 
+
+--- COPY ABOVE THIS LINE ---

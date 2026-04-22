@@ -1,0 +1,114 @@
+DRAW.IO IMPORT INSTRUCTIONS
+===========================
+
+To use these diagrams in Draw.io (also known as diagrams.net):
+
+1. Open https://app.diagrams.net or your desktop Draw.io application.
+2. Create a new diagram or open an existing one.
+3. In the menu, go to **Arrange** > **Insert** > **Advanced** > **Mermaid...**
+4. Copy the code block below (one at a time) and paste it into the text box.
+5. Click **Insert**.
+
+--------------------------------------------------------------------------------
+1. USE CASE DIAGRAM
+--------------------------------------------------------------------------------
+usecaseDiagram
+    actor User
+    actor "Database System" as DB
+
+    usecase "Register/Login" as UC1
+    usecase "Manage Medicines" as UC2
+    usecase "View Dashboard" as UC3
+    usecase "Mark as Taken" as UC4
+    usecase "Upload Prescription" as UC5
+
+    User -- UC1
+    User -- UC2
+    User -- UC3
+    User -- UC4
+    
+    UC1 -- DB
+    UC2 -- DB
+    UC3 -- DB
+    UC4 -- DB
+
+    UC2 ..> UC5 : <<include>>
+    UC4 ..> UC3 : <<extend>>
+
+--------------------------------------------------------------------------------
+2. ACTIVITY DIAGRAM (Notification Flow)
+--------------------------------------------------------------------------------
+flowchart TD
+    Start((Start)) --> HasAccount{Has Account?}
+    HasAccount -- No --> Register[Register]
+    Register --> Login
+    HasAccount -- Yes --> Login[Login]
+    
+    Login -- Failed login --> Login
+    Login --> CheckSchedule[Check Schedule]
+
+    subgraph "Dashboard"
+        CheckSchedule --> ViewDetails[View Medicine Details]
+        ViewDetails -- User Action --> MarkTaken[Mark As Taken]
+        MarkTaken -- System Process --> UpdateStatus[Update Status]
+        UpdateStatus -- Refresh View --> CheckSchedule
+    end
+
+    subgraph "Manage Medicine"
+        ListMedicines[List Medicines] --> AddMedicine[Add Medicine]
+        AddMedicine --> SaveDetails[Save Details]
+        SaveDetails --> ListMedicines
+        ListMedicines --> ListMedicines
+    end
+
+    UpdateStatus -- Click My Medicine --> ListMedicines
+    SaveDetails -- Click Dashboard --> CheckSchedule
+
+--------------------------------------------------------------------------------
+3. DATABASE DIAGRAM (ERD)
+--------------------------------------------------------------------------------
+erDiagram
+    Users {
+        int ID
+        string Name
+        string Email
+        string Password_hash
+    }
+
+    Medicines {
+        int Id
+        int User_id
+        string name
+        string dosage
+        text notes
+        date start_date
+        date end_date
+        string prescription_file
+        boolean active
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    Schedules {
+        int Id
+        int medicine_id
+        time time_of_day
+        timestamp created_at
+    }
+
+    Reminders {
+        int id
+        int user_id
+        int medicine_id
+        int schedule_id
+        datetime reminder_datetime
+        enum status
+        datetime taken_at
+        timestamp created_at
+    }
+
+    Users ||--o{ Medicines : "1:N"
+    Users ||--o{ Reminders : "1:N"
+    Medicines ||--o{ Schedules : "1:N"
+    Medicines ||--o{ Reminders : "1:N"
+    Schedules ||--o{ Reminders : "1:N"

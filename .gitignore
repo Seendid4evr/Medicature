@@ -18,27 +18,10 @@ archive.zip
 *.zip
 *.tar.gz
 
-# ---- Report / Documentation files (not app code) ----
-*.docx
-*.pptx
-*.pdf
-wbs_diagram.png
-
-# ---- Python utility scripts (not app code) ----
-*.py
-
 # ---- One-off / Junk files ----
-1.docx
-1_Medicature.docx
-generate_detailed_pptx.py
-rename_docx.py
-rename_project.ps1
-run_app.bat
 sss/
-docs/
 diag.php
 test_delete_debug.php
-import_bd_medicines.php
 
 # ---- Python cache ----
 __pycache__/
@@ -54,6 +37,3 @@ desktop.ini
 .idea/
 *.swp
 *.swo
-
-# ---- Database dumps (contain real data) ----
-*.sql

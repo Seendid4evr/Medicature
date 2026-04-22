@@ -1,0 +1,6 @@
+﻿@echo off
+echo Starting Medicature App...
+echo Opening browser...
+start http://localhost:8000
+"D:\Xampp\php\php.exe" -S localhost:8000 -t "%~dp0"
+pause
