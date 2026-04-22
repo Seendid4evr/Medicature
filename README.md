@@ -6,36 +6,36 @@ Medicature is a web-based application designed to help users, especially the eld
 ## Project Structure
 ```
 medicature/
-â”œâ”€â”€ config/
-â”‚   â””â”€â”€ database.php          # Database connection settings
-â”œâ”€â”€ includes/
-â”‚   â”œâ”€â”€ auth.php              # Authentication logic
-â”‚   â”œâ”€â”€ functions.php         # Helper functions
-â”‚   â””â”€â”€ session.php           # Session management
-â”œâ”€â”€ assets/
-â”‚   â”œâ”€â”€ css/
-â”‚   â”‚   â””â”€â”€ style.css         # Main stylesheet
-â”‚   â”œâ”€â”€ js/
-â”‚   â”‚   â””â”€â”€ main.js           # Frontend logic
-â”‚   â””â”€â”€ images/
-â”œâ”€â”€ uploads/
-â”‚   â””â”€â”€ prescriptions/        # Storage for uploaded files
-â”œâ”€â”€ cron/
-â”‚   â””â”€â”€ reminder_check.php    # Script for automated reminders
-â”œâ”€â”€ api/
-â”‚   â”œâ”€â”€ check_reminders.php   # Endpoint for browser notifications
-â”‚   â””â”€â”€ mark_taken.php        # Endpoint to mark medicine as taken
-â”œâ”€â”€ pages/
-â”‚   â”œâ”€â”€ dashboard.php         # Main user dashboard
-â”‚   â”œâ”€â”€ medicines.php         # List of all medicines
-â”‚   â”œâ”€â”€ add_medicine.php      # Form to add new medicine
-â”‚   â”œâ”€â”€ edit_medicine.php     # Form to edit medicine
-â”‚   â””â”€â”€ delete_medicine.php   # Script to delete medicine
-â”œâ”€â”€ index.php                 # Entry point (redirects to login)
-â”œâ”€â”€ login.php                 # User login page
-â”œâ”€â”€ register.php              # User registration page
-â”œâ”€â”€ logout.php                # Logout script
-â””â”€â”€ database_setup.sql        # SQL script to create database tables
+config/
+database.php          # Database connection settings
+ includes/
+ auth.php              # Authentication logic
+ functions.php         # Helper functions
+ session.php           # Session management
+assets/
+ css/
+style.css         # Main stylesheet
+
+main.js           # Frontend logic
+images/
+ uploads/
+prescriptions/        # Storage for uploaded files
+cron/
+reminder_check.php    # Script for automated reminders
+api/
+ check_reminders.php   # Endpoint for browser notifications
+ mark_taken.php        # Endpoint to mark medicine as taken
+ pages/
+ dashboard.php         # Main user dashboard
+medicines.php         # List of all medicines
+add_medicine.php      # Form to add new medicine
+edit_medicine.php     # Form to edit medicine
+delete_medicine.php   # Script to delete medicine
+ndex.php                 # Entry point (redirects to login)
+login.php                 # User login page
+register.php              # User registration page
+logout.php                # Logout script
+database_setup.sql        # SQL script to create database tables
 ```
 
 ## Setup Instructions
